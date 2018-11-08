@@ -1,0 +1,23 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<!DOCTYPE hibernate-configuration SYSTEM 
+"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<!-- Hibernate configurations -->
+<hibernate-configuration>
+   <session-factory>
+   
+      <property name = "hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+      <property name = "hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+      <property name = "hibernate.connection.url">jdbc:mysql://google/expense_manager_db?cloudSqlInstance=fabled-variety-221109:us-central1:expense-manager&amp;socketFactory=com.google.cloud.sql.mysql.SocketFactory</property>
+      <property name = "hibernate.connection.username">root</property>
+      <property name = "hibernate.connection.password">Sept@12345</property>
+      <property name="hibernate.show_sql">true</property>
+      
+      <!-- Specifying Session Context -->
+      <property name="hibernate.current_session_context_class">org.hibernate.context.internal.ThreadLocalSessionContext</property>
+      
+      <!-- List of entity files -->
+      <mapping class="com.flex.gcp.ExpenseManager.entity.ExpenseManager"/>
+      
+   </session-factory>
+</hibernate-configuration>
