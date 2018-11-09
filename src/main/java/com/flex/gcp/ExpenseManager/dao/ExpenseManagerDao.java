@@ -51,8 +51,14 @@ public class ExpenseManagerDao {
 			System.out.println(
 					"Exception occured in ExpenseManagerDao#retrieveExpenseDetails(). The Exception is: " + exception);
 		} finally {
-			if (session != null) {
-				session.close();
+			try {
+				if (session != null) {
+					session.close();
+				}
+			} catch (Exception exception) {
+				System.out.println(
+						"Exception occured while closing session in ExpenseManagerDao#retrieveExpenseDetails(). The Exception is: "
+								+ exception);
 			}
 		}
 
@@ -82,10 +88,89 @@ public class ExpenseManagerDao {
 
 			return status;
 		} finally {
-			if (session != null) {
-				session.close();
+			try {
+				if (session != null) {
+					session.close();
+				}
+			} catch (Exception exception) {
+				System.out.println(
+						"Exception occured while closing session in ExpenseManagerDao#createExpenseDetails(). The Exception is: "
+								+ exception);
 			}
 		}
 
+	}
+	
+	public String updateExpenseDetails(ExpenseManager expenseMgrObj) {
+
+		String status = null;
+
+		try {
+			session = HibernateUtils.getSessionFatory().openSession();
+			session.getTransaction().begin();
+
+			session.saveOrUpdate(expenseMgrObj);
+
+			session.getTransaction().commit();
+
+			status = SUCCESS;
+
+			return status;
+		} catch (Exception exception) {
+			System.out.println(
+					"Exception occured in ExpenseManagerDao#updateExpenseDetails(). The Exception is: " + exception);
+
+			status = FAILED;
+
+			return status;
+		} finally {
+			try {
+				if (session != null) {
+					session.close();
+				}
+			} catch (Exception exception) {
+				System.out.println(
+						"Exception occured while closing session in ExpenseManagerDao#updateExpenseDetails(). The Exception is: "
+								+ exception);
+			}
+		}
+
+	}
+	
+	public String deleteExpenseDetails(int id) {
+
+		String status = null;
+
+		try {
+			session = HibernateUtils.getSessionFatory().openSession();
+			session.getTransaction().begin();
+			
+			String hql = "Delete from ExpenseManager where id = :id ";
+			
+			query = session.createQuery(hql);
+			query.setParameter("id", id);
+			
+			int result = query.executeUpdate();
+			
+			return result >=1 ? SUCCESS : FAILED;
+			
+		} catch (Exception exception) {
+			System.out.println(
+					"Exception occured in ExpenseManagerDao#deleteExpenseDetails(). The Exception is: " + exception);
+
+			status = FAILED;
+
+			return status;
+		} finally {
+			try {
+				if (session != null) {
+					session.close();
+				}
+			} catch (Exception exception) {
+				System.out.println(
+						"Exception occured while closing session in ExpenseManagerDao#deleteExpenseDetails(). The Exception is: "
+								+ exception);
+			}
+		}
 	}
 }

@@ -56,4 +56,36 @@ public class ExpenseManagerService {
 
 		return status;
 	}
+	
+	public String updateExpenseDetails(ExpenseManager expenseMgrObj) {
+
+		String status = null;
+
+		try {
+			status = expenseManagerDao.updateExpenseDetails(expenseMgrObj);
+
+			return status;
+		} catch (Exception exception) {
+			System.out.println("Exception occured in ExpenseManagerService#updateExpenseDetails(). The Exception is: "
+					+ exception);
+		}
+
+		return status;
+	}
+	
+	public String deleteExpenseDetails(int id) {
+
+		String status = null;
+
+		try {
+			status = expenseManagerDao.deleteExpenseDetails(id);
+
+			return status;
+		} catch (Exception exception) {
+			System.out.println("Exception occured in ExpenseManagerService#deleteExpenseDetails(). The Exception is: "
+					+ exception);
+		}
+
+		return status;
+	}
 }
